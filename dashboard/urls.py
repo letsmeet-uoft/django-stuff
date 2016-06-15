@@ -10,4 +10,5 @@ urlpatterns = [
     	'template_name' : 'dashboard/index.html'
     	}),
     url(r'^letsmeet/$', views.LetsMeetView.as_view(), name='letsmeet')
-]
+
+
