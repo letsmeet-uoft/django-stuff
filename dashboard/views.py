@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from django.contrib.auth.views import login as django_login
@@ -44,4 +44,8 @@ def profile(request):
 	pass
 
 def showDashboard(request):
+    if request.user.is_anonymous(): raise Http404("You are not logged in")
     return render(request, 'dashboard/main_dashboard.html')
+
+def landingPage(request):
+    return redirect('dashboard') if request.user.is_authenticated() else redirect('home')
