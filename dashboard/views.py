@@ -44,8 +44,7 @@ def profile(request):
 	pass
 
 def showDashboard(request):
-    if request.user.is_anonymous(): raise Http404("You are not logged in")
-    return render(request, 'dashboard/main_dashboard.html')
+    return redirect('home') if request.user.is_anonymous() else render(request, 'dashboard/main_dashboard.html')
 
 def landingPage(request):
     return redirect('dashboard') if request.user.is_authenticated() else redirect('home')
