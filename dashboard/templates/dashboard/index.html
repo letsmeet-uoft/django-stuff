@@ -80,7 +80,7 @@
                                       </div>
                                     </div>
                                  </li>
-                                <li><a href="#download" class="btn-white btn-small">Sign up</a></li>
+                                <li><a href="{% url 'register' %}" class="btn-white btn-small">Sign up</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -331,7 +331,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <h3>Get started with Sedna, absolutely free</h3>
                     <p>Grab your copy today, exclusively from Codrops</p>
-                    <form class="signup-form" action="php/signup.php" method="POST" role="form">
+                    <form class="signup-form" action="register/" method="POST" role="form">
                         
                         <div class="form-input-group">
                             <i class="fa fa-building"></i><input type="text" name="companyname" class="" placeholder="Enter your company name" required>
