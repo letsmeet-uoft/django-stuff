@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^$', 'django.contrib.auth.views.login', {
     	'template_name' : 'dashboard/index.html'
     	}),
+    url(r'^letsmeet/$', views.showDashboard, name='dashboard'),
     ]
 
 

@@ -7,9 +7,6 @@ from .forms import UserForm, UserProfileForm
 
 # Create your views here.
 
-class LetsMeetView(generic.ListView):
-    pass
-
 def login(request):
     pass
 
@@ -45,3 +42,6 @@ def register(request):
 
 def profile(request):
 	pass
+
+def showDashboard(request):
+    return render(request, 'dashboard/main_dashboard.html')
