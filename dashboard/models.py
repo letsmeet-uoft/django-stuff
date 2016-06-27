@@ -15,4 +15,3 @@ class UserProfile(models.Model):
 	def __str__(self):
 		return "User: " + self.first_name + " " + self.last_name
 
-

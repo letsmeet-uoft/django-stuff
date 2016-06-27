@@ -4,6 +4,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.views import login as django_login
 from django.views import generic
 from .forms import UserForm, UserProfileForm
+from schedule.models import Calendar
 
 # Create your views here.
 
@@ -27,6 +28,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
+            calendar = Calendar.objects.get_or_create_calendar_for_object(profile, profile.__str__() + "Calendar")
             registered = True
         else:
             print (user_form.errors, profile_form.errors)
