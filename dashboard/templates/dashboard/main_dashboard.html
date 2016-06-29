@@ -24,8 +24,11 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="{% static "dashboard/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %}"></script>
     <script src="{% static 'dashboard/js/time_scripts.js' %}"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.8.0/fullcalendar.css' />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/momentjs/2.13.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.8.0/fullcalendar.js'></script>
+
     <script src="{% static "dashboard/js/animation_scripts.js" %}"></script>
 
 </head>
@@ -287,7 +290,22 @@
     </div>
 </div>
 
-<div id="calendar_image"></div>
+<!-- 
+    Showing calendar here
+-->
+
+<div id="calendar"></div>
+<script type='text/javascript'>
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+      events: '/schedule/api/occurrences?calendar_slug=example'
+    })
+
+});
+</script>
 
 </body>
 </html>
