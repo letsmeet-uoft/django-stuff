@@ -7,6 +7,8 @@ from .forms import UserForm, UserProfileForm
 from schedule.models import Calendar
 import json
 from datetime import datetime, timedelta, date
+from schedule.forms import EventForm
+from .models import UserProfile
 
 
 # Create your views here.
@@ -15,7 +17,9 @@ def login(request):
     pass
 
 def addEvent(request):
-    pass
+    profile = UserProfile.objects.get(user=request.user)
+    user_calendar = Calendar.objects.get_calendar_for_object(profile)
+
 
 
 def getEvents(request):
@@ -28,6 +32,7 @@ def getEvents(request):
         else None
     )
 
+    """
     tid = 0
     start = datetime.now()
     end = start + timedelta(days=7)
@@ -42,6 +47,20 @@ def getEvents(request):
     } 
 
     json_list.append(json_test_event)
+    """
+
+    profile = UserProfile.objects.get(user=request.user)
+    user_calendar = Calendar.objects.get_calendar_for_object(profile)
+    event_list = user_calendar.events.all()
+
+    for event in event_list:
+        json_event = {
+            'start' : event.start,
+            'end' : event.end,
+            'title' : event.title,
+        }
+
+        json_list.append(json_event)
 
     return HttpResponse(json.dumps(json_list, default=date_handler), content_type='application/json')
 
@@ -49,6 +68,8 @@ def register(request):
     # Like before, get the request's context.
     context = RequestContext(request)
     registered = False
+
+    print('hello')
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
