@@ -17,8 +17,27 @@ def login(request):
     pass
 
 def addEvent(request):
-    profile = UserProfile.objects.get(user=request.user)
-    user_calendar = Calendar.objects.get_calendar_for_object(profile)
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        profile = UserProfile.objects.get(user=request.user)
+        user_calendar = Calendar.objects.get_calendar_for_object(profile)
+        
+        event_form = EventForm(data=request.POST)
+
+        if event_form.is_valid:
+            #save event in db
+            event = event_form.save()
+            #add the event to the users calendar
+            user_calendar.events.add(event)
+        else:
+            print(event_form.errors)
+    else:
+        event_form = EventForm()
+
+    return render(request, 'main_dashboard.html', {'event_form':event_form,})
+
+
 
 
 
@@ -31,23 +50,6 @@ def getEvents(request):
         or isinstance(obj, date)
         else None
     )
-
-    """
-    tid = 0
-    start = datetime.now()
-    end = start + timedelta(days=7)
-    allDay = False
-    title = 'test'
-    json_test_event = {
-        'id' : tid,
-        'start' : start,
-        'end' : end,
-        'allDay' : allDay,
-        'title' : title,
-    } 
-
-    json_list.append(json_test_event)
-    """
 
     profile = UserProfile.objects.get(user=request.user)
     user_calendar = Calendar.objects.get_calendar_for_object(profile)
@@ -68,8 +70,6 @@ def register(request):
     # Like before, get the request's context.
     context = RequestContext(request)
     registered = False
-
-    print('hello')
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
