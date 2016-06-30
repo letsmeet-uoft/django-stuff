@@ -11,6 +11,7 @@ urlpatterns = [
     	}, name='home'),
     url(r'^$', views.landingPage, name='landing_page'),
     url(r'^letsmeet/$', views.showDashboard, name='dashboard'),
+    url(r'^getEvents/$', views.getEvents, name='get_events'),
     ]
 
 

@@ -1,16 +1,49 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.contrib.auth.views import login as django_login
 from django.views import generic
 from .forms import UserForm, UserProfileForm
 from schedule.models import Calendar
+import json
+from datetime import datetime, timedelta, date
+
 
 # Create your views here.
 
 def login(request):
     pass
 
+def addEvent(request):
+    pass
+
+
+def getEvents(request):
+    json_list = []
+
+    date_handler = lambda obj: (
+        obj.isoformat()
+        if isinstance(obj, datetime)
+        or isinstance(obj, date)
+        else None
+    )
+
+    tid = 0
+    start = datetime.now()
+    end = start + timedelta(days=7)
+    allDay = False
+    title = 'test'
+    json_test_event = {
+        'id' : tid,
+        'start' : start,
+        'end' : end,
+        'allDay' : allDay,
+        'title' : title,
+    } 
+
+    json_list.append(json_test_event)
+
+    return HttpResponse(json.dumps(json_list, default=date_handler), content_type='application/json')
 
 def register(request):
     # Like before, get the request's context.
