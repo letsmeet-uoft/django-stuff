@@ -303,10 +303,13 @@
                 <h4 id="modalTitle" class="modal-title">Add an event</h4>
             </div>
             <div id="modalBody" class="modal-body"> 
-                <form action='/dashboard/addEvent/' method='post'>
+                <form action="{% url 'dashboard' %}" method='post'>
                     {% csrf_token %}
-                    {{ event_form }}
-
+                    Title: {{ event_form.title }}  
+                    <br>
+                    Start: {{ event_form.start }}
+                    <br>
+                    End: {{ event_form.end }}
                     <input type="submit" value="Done!"/>
                 </form>
             </div>
@@ -327,7 +330,7 @@ $(document).ready(function() {
         // put your options and callbacks here
 
 
-        events:"/dashboard/getEvents/",
+        events: "{% url 'get_events' %}",
         dayClick: function(date, jsEvent, view) {
             $('#calendarModal').modal('show');
         }

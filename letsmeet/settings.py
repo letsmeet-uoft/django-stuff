@@ -139,6 +139,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+DATETIME_INPUT_FORMATS = ('%d/%m/%Y %I:%M', '%Y-%m-%d %H:%M', '%Y-%m-%d',
+    '%m/%d/%Y %H:%M:%S', '%m/%d/%Y %H:%M', '%m/%d/%Y',
+    '%m/%d/%y %H:%M:%S', '%m/%d/%y %H:%M', '%m/%d/%y')
+
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
 
 BOWER_INSTALLED_APPS = (

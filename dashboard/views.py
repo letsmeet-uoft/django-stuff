@@ -13,58 +13,38 @@ from .models import UserProfile
 
 # Create your views here.
 
-def login(request):
-    pass
-
 def addEvent(request):
-    context = RequestContext(request)
-
     if request.method == 'POST':
-        profile = UserProfile.objects.get(user=request.user)
-        user_calendar = Calendar.objects.get_calendar_for_object(profile)
-        
-        event_form = EventForm(data=request.POST)
-
-        if event_form.is_valid:
-            #save event in db
-            event = event_form.save()
-            #add the event to the users calendar
-            user_calendar.events.add(event)
-        else:
-            print(event_form.errors)
-    else:
-        event_form = EventForm()
-
-    return render(request, 'main_dashboard.html', {'event_form':event_form,})
-
-
-
-
+        return HttpResponse( request.POST)
 
 def getEvents(request):
-    json_list = []
+    if request.is_ajax:
+        json_list = []
 
-    date_handler = lambda obj: (
-        obj.isoformat()
-        if isinstance(obj, datetime)
-        or isinstance(obj, date)
-        else None
-    )
+        date_handler = lambda obj: (
+            obj.isoformat()
+            if isinstance(obj, datetime)
+            or isinstance(obj, date)
+            else None
+        )
 
-    profile = UserProfile.objects.get(user=request.user)
-    user_calendar = Calendar.objects.get_calendar_for_object(profile)
-    event_list = user_calendar.events.all()
+        profile = UserProfile.objects.get(user=request.user)
+        user_calendar = Calendar.objects.get_calendar_for_object(profile)
+        event_list = user_calendar.events.all()
 
-    for event in event_list:
-        json_event = {
-            'start' : event.start,
-            'end' : event.end,
-            'title' : event.title,
-        }
+        for event in event_list:
+            json_event = {
+                'start' : event.start,
+                'end' : event.end,
+                'title' : event.title,
+            }
 
-        json_list.append(json_event)
+            json_list.append(json_event)
 
-    return HttpResponse(json.dumps(json_list, default=date_handler), content_type='application/json')
+        return HttpResponse(json.dumps(json_list, default=date_handler), content_type='application/json')
+
+    else:
+        raise Http404
 
 def register(request):
     # Like before, get the request's context.
@@ -100,7 +80,30 @@ def profile(request):
 	pass
 
 def showDashboard(request):
-    return redirect('home') if request.user.is_anonymous() else render(request, 'dashboard/main_dashboard.html')
+
+    # user not logged in
+    if request.user.is_anonymous():
+        return redirect('home')
+
+    else: #logged in
+        context = RequestContext(request)
+
+        if request.method == 'POST':
+            profile = UserProfile.objects.get(user=request.user)
+            user_calendar = Calendar.objects.get_calendar_for_object(profile)
+            
+            event_form = EventForm(data=request.POST)
+
+            if event_form.is_valid:
+                #save event in db
+                event = event_form.save()
+                #add the event to the users calendar
+                user_calendar.events.add(event)
+            else:
+                HttpResponse(event_form.errors)
+        else:
+            event_form = EventForm()
+        return render(request, 'dashboard/main_dashboard.html', {'event_form' : event_form,})
 
 def landingPage(request):
     return redirect('dashboard') if request.user.is_authenticated() else redirect('home')

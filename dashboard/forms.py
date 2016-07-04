@@ -22,3 +22,4 @@ class UserProfileForm(forms.ModelForm):
 			'first_name' : forms.TextInput(attrs={'placeholder' : 'Enter first name'}), 
 			'last_name' : forms.TextInput(attrs={'placeholder' : 'Last name'}),
 		}
+
