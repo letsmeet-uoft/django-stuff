@@ -16,6 +16,12 @@ from .models import UserProfile
 def login(request):
     pass
 
+def pricingPage(request):
+    return render(request, 'Pricing.html')
+
+def features(request):
+    return render(request, 'features.html')
+
 def addEvent(request):
     context = RequestContext(request)
 

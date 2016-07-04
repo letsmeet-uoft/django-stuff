@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^letsmeet/$', views.showDashboard, name='dashboard'),
     url(r'^getEvents/$', views.getEvents, name='get_events'),
     url(r'^addEvent/$', views.addEvent, name='add_event'),
+    url(r'^Pricing/$', views.pricingPage, name='Pricing'),
+    url(r'^Features/$', views.features, name='Features'),
     ]
 
 
