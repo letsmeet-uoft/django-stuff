@@ -13,6 +13,15 @@ from .models import UserProfile
 
 # Create your views here.
 
+def login(request):
+    pass
+
+def pricingPage(request):
+    return render(request, 'Pricing.html')
+
+def features(request):
+    return render(request, 'features.html')
+
 def addEvent(request):
     if request.method == 'POST':
         return HttpResponse( request.POST)

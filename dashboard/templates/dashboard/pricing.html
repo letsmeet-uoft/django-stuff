@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+.columns {
+    float: left;
+    width: 25%;
+    padding: 8px;
+}
+
+.price {
+    list-style-type: none;
+    border: 1px solid #eee;
+    margin: 0;
+    padding: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.price:hover {
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+.price .header {
+    background-color: #111;
+    color: white;
+    font-size: 25px;
+}
+
+.price li {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+    text-align: center;
+}
+
+.price .grey {
+    background-color: #eee;
+    font-size: 20px;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+@media only screen and (max-width: 600px) {
+    .columns {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center">Pricing</h2>
+<p style="text-align:center">Pick the package that best serves your needs.</p>
+
+<div class="columns">
+  <ul class="price">
+    <li class="header">Free</li>
+    <li class="grey">$0/year</li>
+    <li>Schedule meetings with up to 5 people</li>
+    <li>Create and save teams of up to 5 people</li>
+    <li>Can create 8 meetings per month</li>
+    <li>Create personal calendar, or sync calendar to Google or Outlook</li>
+    <li class="grey"><a href="{% url 'register' %}" class="button">Sign Up</a></li>
+  </ul>
+</div>
+
+<div class="columns">
+  <ul class="price">
+    <li class="header" style="background-color:#4CAF50">Standard</li>
+    <li class="grey">$9.99/year</li>
+    <li>Schedule meetings with up 
+to 50 people
+</li>
+    <li>Create and save teams of up to 50 people
+</li>
+    <li>Can create an unlimited amount of meetings per month
+</li>
+    <li>Create personal calendar, or sync calendar to Google or Outlook
+</li>
+    <li class="grey"><a href="{% url 'register' %}" class="button">Sign Up</a></li>
+  </ul>
+</div>
+
+<div class="columns">
+  <ul class="price">
+    <li class="header">Premium</li>
+    <li class="grey">$16.99/year</li>
+    <li>Schedule meetings with up to 250* people
+</li>
+    <li>Create and save teams of up to 250* people
+</li>
+    <li>Can create an unlimited amount of meetings per month
+</li>
+    <li>Create personal calendar, or 
+sync calendar to Google or Outlook
+</li>
+    <li class="grey"><a href="{% url 'register' %}" class="button">Sign Up</a></li>
+  </ul>
+</div>
+
+<div class="columns">
+  <ul class="price">
+    <li class="header">Corporate</li>
+    <li class="grey">Contact Us</li>
+    <li>Custom pricing based on company needs 
+</li>
+    <li>Hierarchical team structure to mimic the workplace
+</li>
+    <li>Customized appearance and branding
+</li>
+    <li>Fixed and discounted 
+yearly fee depending on number of active accounts
+</li>
+    <li class="grey"><a href="{% url 'register' %}" class="button">Sign Up</a></li>
+  </ul>
+</div>
+
+</body>
+</html>
+
