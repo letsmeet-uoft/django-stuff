@@ -47,7 +47,7 @@
                 <div class="header-nav">
                     <nav>
                         <ul class="member-actions">
-                            <li><!-- LOGIN BUTTON -->
+                            <li><!-- show user options -->
                                 <a class="login" data-popup-open="login-popup" href="#Sign up">{{user.get_username}}</a>
                                 <div class = "popup" data-popup= "login-popup">
                                   <div class= "popup-inner">
@@ -81,6 +81,9 @@
                              </li>
                              <li>
                                 <a class="login" href="{% url 'logout' %}?next=/dashboard">Log Out</a>
+                             </li>
+                             <li>
+                                <a class="login" href= "{{ signin_url }}"> Connect to Outlook </a>
                              </li>
                         </ul>
                     </nav>

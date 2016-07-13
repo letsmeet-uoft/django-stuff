@@ -3,14 +3,14 @@ from django.template import RequestContext
 from django.http import HttpResponse, Http404, JsonResponse
 from django.contrib.auth.views import login as django_login
 from django.views import generic
+from django.core.urlresolvers import reverse
 from .forms import UserForm, UserProfileForm
 from schedule.models import Calendar
 import json
 from datetime import datetime, timedelta, date
 from schedule.forms import EventForm
 from .models import UserProfile
-
-
+from .authhelper import get_signin_url, get_token_from_code, get_user_email_from_id_token
 # Create your views here.
 
 def login(request):
@@ -96,6 +96,9 @@ def showDashboard(request):
 
     else: #logged in
         context = RequestContext(request)
+        
+        redirect_uri = request.build_absolute_uri(reverse('gettoken'))
+        signin_url = get_signin_url(redirect_uri)
 
         if request.method == 'POST':
             profile = UserProfile.objects.get(user=request.user)
@@ -112,7 +115,25 @@ def showDashboard(request):
                 HttpResponse(event_form.errors)
         else:
             event_form = EventForm()
-        return render(request, 'dashboard/main_dashboard.html', {'event_form' : event_form,})
+        return render(request, 'dashboard/main_dashboard.html', {'event_form' : event_form,'signin_url' : signin_url,})
 
 def landingPage(request):
     return redirect('dashboard') if request.user.is_authenticated() else redirect('home')
+
+# testing outlook authentication
+def home(request):
+
+    return HttpResponse('<a href="' + signin_url +'">Click here to sign in and view your mail</a>')
+
+# get
+def gettoken(request):
+    auth_code = request.GET['code']
+    redirect_uri = request.build_absolute_uri(reverse('gettoken'))
+    token = get_token_from_code(auth_code, redirect_uri)
+    access_token = token['access_token']
+    user_email = get_user_email_from_id_token(token['id_token'])
+
+    # Save the token in the session
+    request.session['access_token'] = access_token
+    request.session['user_email'] = user_email
+    return HttpResponse('User Email: {0}, Access token: {1}'.format(user_email, access_token))
