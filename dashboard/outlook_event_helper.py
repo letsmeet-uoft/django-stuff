@@ -24,7 +24,7 @@ def get_events_from_outlook(access_token, email):
 	#format the list so that full calendar can properly use it
 	for i in range(0,size):
 		start = datetime.strptime(event_list[i]['Start']['DateTime'], OUTLOOK_TIME_FORMAT_STRING)
-		end = datetime.strptime(event_list[i]['Start']['DateTime'], OUTLOOK_TIME_FORMAT_STRING)
+		end = datetime.strptime(event_list[i]['End']['DateTime'], OUTLOOK_TIME_FORMAT_STRING)
 		title = event_list[i]['Subject']
 
 		json_data = {
