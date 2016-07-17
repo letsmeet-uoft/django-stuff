@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^Features/$', views.features, name='Features'),
 
     #temp urls to test using outlook rest apis
-    url(r'^home/$', views.home, name='home'),
+    
     url(r'^gettoken/$', views.gettoken, name='gettoken'),
 ]
 

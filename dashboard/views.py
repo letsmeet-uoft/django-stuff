@@ -11,7 +11,11 @@ from datetime import datetime, timedelta, date
 from schedule.forms import EventForm
 from .models import UserProfile
 from .authhelper import get_signin_url, get_token_from_code, get_user_email_from_id_token
+from . import outlookservice
+from .outlook_event_helper import get_events_from_outlook
 # Create your views here.
+
+connected_to_outlook = False
 
 def login(request):
     pass
@@ -27,6 +31,7 @@ def addEvent(request):
         return HttpResponse( request.POST)
 
 def getEvents(request):
+    import pdb
     if request.is_ajax:
         json_list = []
 
@@ -49,6 +54,16 @@ def getEvents(request):
             }
 
             json_list.append(json_event)
+
+        """
+        Check if the user has connected to outlook, and if so append the events 
+        from their outlook to the list of events: json_list so that they are also 
+        seen on the calendar
+        """
+
+        outlook_list = get_events_from_outlook(request.session['access_token'], request.session['user_email'])
+
+        json_list = json_list + outlook_list
 
         return HttpResponse(json.dumps(json_list, default=date_handler), content_type='application/json')
 
@@ -91,12 +106,18 @@ def profile(request):
 def showDashboard(request):
 
     # user not logged in
+    try:
+        user_email = request.session['user_email']
+        access_token = request.session['access_token']
+    except KeyError:
+        pass
+
     if request.user.is_anonymous():
         return redirect('home')
 
     else: #logged in
         context = RequestContext(request)
-        
+
         redirect_uri = request.build_absolute_uri(reverse('gettoken'))
         signin_url = get_signin_url(redirect_uri)
 
@@ -136,4 +157,5 @@ def gettoken(request):
     # Save the token in the session
     request.session['access_token'] = access_token
     request.session['user_email'] = user_email
-    return HttpResponse('User Email: {0}, Access token: {1}'.format(user_email, access_token))
+    connected_to_outlook = True
+    return redirect('dashboard')
