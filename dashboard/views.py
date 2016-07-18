@@ -61,7 +61,7 @@ def getEvents(request):
         seen on the calendar
         """
 
-        outlook_list = get_events_from_outlook(request.session['access_token'], request.session['user_email'])
+        outlook_list = get_events_from_outlook(request.session['outlook_access_token'], request.session['outlook_user_email'])
 
         json_list = json_list + outlook_list
 
@@ -107,8 +107,8 @@ def showDashboard(request):
 
     # user not logged in
     try:
-        user_email = request.session['user_email']
-        access_token = request.session['access_token']
+        user_email = request.session['outlook_user_email']
+        access_token = request.session['outlook_access_token']
     except KeyError:
         pass
 
@@ -155,7 +155,7 @@ def gettoken(request):
     user_email = get_user_email_from_id_token(token['id_token'])
 
     # Save the token in the session
-    request.session['access_token'] = access_token
-    request.session['user_email'] = user_email
+    request.session['outlook_access_token'] = access_token
+    request.session['outlook_user_email'] = user_email
     connected_to_outlook = True
     return redirect('dashboard')
