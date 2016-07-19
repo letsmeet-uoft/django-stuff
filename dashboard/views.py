@@ -17,8 +17,11 @@ from .outlook_event_helper import get_events_from_outlook
 
 connected_to_outlook = False
 
-def login(request):
-    pass
+def event_details(request, event_name):
+    if event_name is not None:
+        return HttpResponse(event_name)
+    else:
+        return HttpResponse('outlook or google event')
 
 def pricingPage(request):
     return render(request, 'Pricing.html')
@@ -51,6 +54,7 @@ def getEvents(request):
                 'start' : event.start,
                 'end' : event.end,
                 'title' : event.title,
+                'url' : reverse('view_event_details', args=[event.title]),
             }
 
             json_list.append(json_event)

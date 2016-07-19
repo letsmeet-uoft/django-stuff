@@ -10,6 +10,7 @@ returns a list of events converted so that the fullcalendar.js can display event
 from outlook too if the user has connected their outlook account
 """
 OUTLOOK_TIME_FORMAT_STRING = "%Y-%m-%dT%H:%M:%S.0000000"
+OUTLOOK_EVENT_COLOR = "green"
 
 def get_events_from_outlook(access_token, email):
 
@@ -31,6 +32,8 @@ def get_events_from_outlook(access_token, email):
 			'start' : start,
 			'end' : end,
 			'title' : title,
+			'url' : None,
+			'color' : OUTLOOK_EVENT_COLOR,
 		}
 
 		json_list.append(json_data)
