@@ -64,6 +64,8 @@ def getEvents(request):
         from their outlook to the list of events: json_list so that they are also 
         seen on the calendar
         """
+        #if session variable contains these keys, then user has connected to outlook,
+        #no KeyError will be thrown
         if 'outlook_access_token' in request.session and 'outlook_user_email' in request.session:
             outlook_list = get_events_from_outlook(request.session['outlook_access_token'], request.session['outlook_user_email'])
             json_list = json_list + outlook_list
