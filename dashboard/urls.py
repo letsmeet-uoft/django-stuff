@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from . import views
-
+app_name = 'dashboard'
 urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^register/$', views.register, name='register'),
@@ -14,6 +14,11 @@ urlpatterns = [
     url(r'^___LM_ae___/$', views.addEvent, name='add_event'),
     url(r'^Pricing/$', views.pricingPage, name='Pricing'),
     url(r'^Features/$', views.features, name='Features'),
+    url(r'^event/(?P<event_name>.*)$', views.event_details, name='view_event_details'),
+
+    #temp urls to test using outlook rest apis
+    
+    url(r'^gettoken/$', views.gettoken, name='gettoken'),
 ]
 
 
