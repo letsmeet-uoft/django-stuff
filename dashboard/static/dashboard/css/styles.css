@@ -439,11 +439,9 @@ Hero
 .navigation {
   -webkit-transition: all 300ms ease-in-out;
           transition: all 300ms ease-in-out;
-<<<<<<< HEAD
+
   position: absolute;
-=======
-  position: relative;
->>>>>>> af195c205cdf672c50947066cf7c743e065c2fa7
+
   width: 100%;
   z-index: 999; }
 
