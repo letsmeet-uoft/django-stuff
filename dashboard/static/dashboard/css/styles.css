@@ -135,11 +135,24 @@ h5 {
 .btn-margin-right {
   margin-right: 20px; }
 
-section.intro, section.features-extra, section.sign-up {
-  background: #fff; }
+section.intro, section.sign-up {
+  /*background: #fff; }*/
+/*background: url("../img/speckle.png") center center;
+  background-size: cover;
+  position: relative; }*/
+background: #fff;}
 
 section.features, section.blog-intro, section.blog {
-  background: #F3F4F8; }
+  background: #f3f4f8; }
+  /*background: #fff; }*/
+
+section.features-extra{
+  /* background: url("../img/spec.png") center center;
+  background-size: cover;
+  position: relative; */
+
+background:#fff;
+  }
 
 /* ==========================================================================
 Global Styles
@@ -406,7 +419,8 @@ Hero
 ========================================================================== */
 .hero {
   min-height: 750px;
-  background: url("../img/hero.jpg") center center;
+  /*background: url("../img/hero.jpg") center center;*/
+    background: url("../img/wix.jpg") center center;
   background-size: cover;
   position: relative; }
   .hero .down-arrow a {
@@ -425,7 +439,7 @@ Hero
 .navigation {
   -webkit-transition: all 300ms ease-in-out;
           transition: all 300ms ease-in-out;
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 999; }
 
@@ -592,9 +606,12 @@ Features-stack
 .hero-strip
 ========================================================================== */
 .hero-strip {
-  margin-top: 120px;
-  background: #333844 url("../img/polygonal-bg.jpg") no-repeat center center;
-  padding-bottom: 190px;
+  margin-top: 420px;
+/*  background: #333844 url("../img/polygonal-bg.jpg") no-repeat center center;
+*/ 
+  background: #333844 url("../img/milana.jpeg") no-repeat center center;
+
+ padding-bottom: 190px;
   position: relative; }
   .hero-strip i {
     font-family: "Nunito", sans-serif;
@@ -693,8 +710,10 @@ Features-stack
 /* ==========================================================================
 .testimonial-slider
 ========================================================================== */
-.testimonial-slider {
-  background: url("../img/testimonials-bg.jpg") no-repeat center center;
+/*.testimonial-slider {
+  /*background: url("../img/testimonials-bg.jpg") no-repeat center center;*/
+  background: #fff;
+
   background-size: cover; }
   .testimonial-slider .avatar {
     width: 82px;
@@ -717,7 +736,7 @@ Features-stack
   .testimonial-slider p {
     color: #ACB1B4;
     text-transform: uppercase;
-    letter-spacing: 2px; }
+    letter-spacing: 2px; }*/
 
 /* ==========================================================================
 Sign up form
