@@ -30,8 +30,7 @@ def features(request):
     return render(request, 'features.html')
 
 def addEvent(request):
-    if request.method == 'POST':
-        return HttpResponse( request.POST)
+    pass 
 
 def getEvents(request):
     import pdb

@@ -1,0 +1,7 @@
+Django==1.8.8
+django-bower==5.0.4
+google-api-python-client==1.5.1
+httplib2==0.9.2
+-e git+https://github.com/llazzaro/django-scheduler.git@afdd7f6e9313ac3fa8b2dfea6c8493b83859a90b#egg=django_scheduler
+oauth2client==2.2.0
+requests==2.10.0
